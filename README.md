@@ -57,3 +57,7 @@ for f in ../nudge-invest/build/screenshots/raw/0*.png; do
 done
 node tools/render-og.mjs
 ```
+
+## Search Console
+
+The github.io property is verified two ways — `src/static/google3a20395304e6f416.html` (HTML-file method) and the `googleSiteVerification` meta tag emitted from `site.config.json`. Don't delete either. Sitemap: `/sitemap.xml` (submitted 2026-09-07). After the custom domain is live, add it as a Domain property in Search Console; the meta tag verifies it automatically.
