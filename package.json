@@ -1,0 +1,13 @@
+{
+  "name": "nudge-invest-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing site for Nudge Invest — static, zero-dependency, SEO/GEO-optimised.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check",
+    "serve": "node build.mjs && python3 -m http.server 8090 --directory dist"
+  },
+  "engines": { "node": ">=20" }
+}

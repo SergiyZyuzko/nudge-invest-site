@@ -1,0 +1,27 @@
+{
+  "_comment": "Single source of truth for the marketing site. Change `domain` once and every canonical URL, sitemap entry, OG tag, JSON-LD @id and llms.txt line follows. `nudgeinvest.app` is a placeholder until the real domain is confirmed.",
+  "domain": "nudgeinvest.app",
+  "baseUrl": "https://nudgeinvest.app",
+  "name": "Nudge Invest",
+  "shortName": "Nudge",
+  "tagline": "The private, offline portfolio tracker",
+  "description": "Nudge Invest is a private, offline-first portfolio tracker for stocks, ETFs, crypto and dividends. No account, no cloud, no ads — your data stays on your phone. Optional AI coach.",
+  "playUrl": "https://play.google.com/store/apps/details?id=com.nudgeinvest.app",
+  "playPackage": "com.nudgeinvest.app",
+  "privacyUrl": "https://sergiyzyuzko.github.io/nudge-invest-legal/privacy-policy.html",
+  "termsUrl": "https://sergiyzyuzko.github.io/nudge-invest-legal/terms-of-service.html",
+  "supportEmail": "sergiy.zyuzko@tree-solutions.com",
+  "operator": "TreeSolutions",
+  "operatorPerson": "Sergiy Zyuzko",
+  "pricing": {
+    "tracker": "Free",
+    "monthly": "5.99",
+    "yearly": "49.99",
+    "dayPass": "2.99",
+    "currency": "USD",
+    "trialDays": 7
+  },
+  "version": "1.2.0",
+  "platforms": ["Android"],
+  "themeColor": "#0C3A2B"
+}

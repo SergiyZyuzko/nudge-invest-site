@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG image — Nudge Invest</title>
+<style>
+  /* 1200x630 Open Graph card. Rendered to PNG by tools/render-og.mjs via the
+     same CDP helper the app uses for store art. Text stays inside the centre
+     ~1000x500 so it survives the crops LinkedIn/X/Slack apply. */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; color: #fff;
+    background:
+      radial-gradient(70% 120% at 82% 10%, rgba(79,191,139,.34) 0%, transparent 58%),
+      linear-gradient(120deg, #0C3A2B 0%, #08251B 46%, #041610 100%);
+    display: grid; grid-template-columns: 1fr 380px; align-items: center; padding: 0 84px; gap: 40px;
+  }
+  .mark { display: inline-grid; grid-auto-flow: column; place-items: center; width: 72px; height: 72px; border-radius: 18px;
+    background: linear-gradient(160deg, #0F4A36, #0A2B20); box-shadow: 0 12px 30px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.1);
+    font-size: 34px; font-weight: 800; letter-spacing: -2px; margin-bottom: 26px; }
+  .mark b { color: #fff; } .mark i { color: #E9C46A; font-style: normal; }
+  h1 { font-size: 64px; line-height: 1.04; letter-spacing: -2.6px; font-weight: 700; }
+  h1 em { font-style: normal; color: #4FBF8B; }
+  p { margin-top: 20px; font-size: 27px; color: rgba(255,255,255,.7); letter-spacing: -.2px; max-width: 620px; }
+  .chips { margin-top: 28px; display: flex; gap: 10px; }
+  .chip { padding: 9px 18px; border-radius: 999px; font-size: 20px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.88); }
+  .phone { width: 300px; height: 600px; border-radius: 44px; padding: 10px; background: linear-gradient(180deg,#3a4a43,#0a120e);
+    box-shadow: 0 40px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.09); justify-self: end; transform: translateY(70px) rotate(-4deg); }
+  .phone img { width: 100%; border-radius: 36px; display: block; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="mark"><b>N</b><i>I</i></div>
+    <h1>The private, offline<br><em>portfolio tracker</em></h1>
+    <p>Stocks, ETFs, crypto &amp; dividends — on your phone, with no account and no cloud.</p>
+    <div class="chips"><span class="chip">Free on Android</span><span class="chip">No ads</span><span class="chip">Optional AI coach</span></div>
+  </div>
+  <div class="phone"><img src="../src/static/shots/01-portfolio.png" alt=""></div>
+  <script>
+    const img = document.querySelector('img');
+    window.__ready = false;
+    const done = () => { window.__ready = true; };
+    img.complete ? done() : (img.onload = done, img.onerror = done);
+  </script>
+</body>
+</html>
