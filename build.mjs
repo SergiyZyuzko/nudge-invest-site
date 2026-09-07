@@ -166,6 +166,7 @@ function shell(page) {
 <meta name="description" content="${esc(meta.description)}">
 <link rel="canonical" href="${url}">
 <meta name="robots" content="index,follow,max-image-preview:large">
+${site.googleSiteVerification ? `<meta name="google-site-verification" content="${site.googleSiteVerification}">` : ''}
 <meta name="theme-color" content="${site.themeColor}">
 <meta property="og:type" content="${meta.ogType ?? 'website'}">
 <meta property="og:site_name" content="${esc(site.name)}">
