@@ -2,6 +2,7 @@
   "_comment": "Single source of truth for the marketing site. Change `domain` once and every canonical URL, sitemap entry, OG tag, JSON-LD @id and llms.txt line follows. `nudgeinvest.app` is a placeholder until the real domain is confirmed.",
   "domain": "nudgeinvest.app",
   "baseUrl": "https://nudgeinvest.app",
+  "indexNowKey": "e441e58f304e16e65eeca9fd558de1e7",
   "googleSiteVerification": "i9QNbt7bjU1lauVHo0_a1OQHdeZ4TZymTwHUxHij9ac",
   "name": "Nudge Invest",
   "shortName": "Nudge",
