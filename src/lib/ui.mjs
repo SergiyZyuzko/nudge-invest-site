@@ -5,6 +5,9 @@
  * match what's on the page.
  */
 
+/** Effective origin (+ base path) — CI may override the config domain until DNS is live. */
+export const baseUrl = (site) => (process.env.SITE_BASE_URL || site.baseUrl).replace(/\/$/, '');
+
 export const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -86,10 +89,10 @@ export function article(site, meta, body, { crumbTrail = [], kind = 'Article' } 
     description: meta.description,
     datePublished: meta.datePublished,
     dateModified: meta.dateModified ?? meta.datePublished,
-    author: { '@type': 'Organization', name: site.operator, url: site.baseUrl },
-    publisher: { '@id': `${site.baseUrl}/#org` },
-    mainEntityOfPage: `${site.baseUrl}${meta.path}`,
-    about: { '@id': `${site.baseUrl}/#app` },
+    author: { '@type': 'Organization', name: site.operator, url: baseUrl(site) },
+    publisher: { '@id': `${baseUrl(site)}/#org` },
+    mainEntityOfPage: `${baseUrl(site)}${meta.path}`,
+    about: { '@id': `${baseUrl(site)}/#app` },
   };
   return { html, schema };
 }

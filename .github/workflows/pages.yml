@@ -25,7 +25,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # Until the custom domain's DNS is live, serve from the github.io project
+      # URL. Set the repo variable SITE_BASE_URL=https://nudgeinvest.app (and the
+      # custom domain in Settings → Pages) to switch: the build then emits CNAME
+      # and root-absolute paths.
       - run: node build.mjs
+        env:
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL || 'https://sergiyzyuzko.github.io/nudge-invest-site' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

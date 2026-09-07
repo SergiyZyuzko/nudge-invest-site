@@ -28,12 +28,26 @@ export const site = JSON.parse(readFileSync(join(ROOT, 'site.config.json'), 'utf
 const css = readFileSync(join(SRC, 'styles.css'), 'utf8');
 const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
+/**
+ * Where the site is served from. Defaults to the custom domain in the config.
+ * Until that domain's DNS is live, CI sets SITE_BASE_URL to the github.io
+ * project URL, which lives under a /repo-name/ sub-path — so every root-absolute
+ * href/src has to be prefixed, canonicals must point at the URL that actually
+ * serves, and no CNAME must be emitted (GitHub would try to bind the domain).
+ */
+const BASE_URL = (process.env.SITE_BASE_URL || site.baseUrl).replace(/\/$/, '');
+const BASE_PATH = new URL(BASE_URL).pathname.replace(/\/$/, ''); // '' at a root domain
+const CUSTOM_DOMAIN = BASE_PATH === '' && new URL(BASE_URL).hostname === site.domain;
+if (BASE_URL !== site.baseUrl) console.log(`ℹ building for ${BASE_URL} (base path "${BASE_PATH || '/'}")`);
+
 /* ───────────────────────────── helpers ───────────────────────────── */
 
 export const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const abs = (path) => `${site.baseUrl}${path}`;
+const abs = (path) => `${BASE_URL}${path}`;
+/** Prefix root-absolute href/src attributes with the base path (no-op at a root domain). */
+const rebase = (html) => (BASE_PATH ? html.replace(/(href|src)="\//g, `$1="${BASE_PATH}/`) : html);
 
 /** Collect page modules recursively. */
 async function loadPages() {
@@ -76,7 +90,7 @@ function baseSchema() {
       applicationCategory: 'FinanceApplication',
       operatingSystem: 'Android',
       softwareVersion: site.version,
-      url: site.baseUrl,
+      url: BASE_URL,
       installUrl: site.playUrl,
       downloadUrl: site.playUrl,
       description: site.description,
@@ -102,7 +116,7 @@ function baseSchema() {
       '@type': 'Organization',
       '@id': abs('/#org'),
       name: site.operator,
-      url: site.baseUrl,
+      url: BASE_URL,
       email: site.supportEmail,
       founder: { '@type': 'Person', name: site.operatorPerson },
     },
@@ -110,7 +124,7 @@ function baseSchema() {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       '@id': abs('/#website'),
-      url: site.baseUrl,
+      url: BASE_URL,
       name: site.name,
       publisher: { '@id': abs('/#org') },
     },
@@ -143,7 +157,7 @@ function shell(page) {
     (n) => `<a href="${n.href}"${meta.path === n.href || (n.href !== '/' && meta.path.startsWith(n.href)) ? ' aria-current="page"' : ''}>${n.label}</a>`,
   ).join('');
 
-  return `<!doctype html>
+  return rebase(`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -226,7 +240,7 @@ ${body}
 </footer>
 </body>
 </html>
-`;
+`);
 }
 
 /* ───────────────────────────── aux files ───────────────────────────── */
@@ -275,11 +289,11 @@ const manifest = () =>
     {
       name: site.name,
       short_name: site.shortName,
-      start_url: '/',
+      start_url: `${BASE_PATH}/`,
       display: 'browser',
       background_color: '#0D0D0D',
       theme_color: site.themeColor,
-      icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/icon-512.png', sizes: '512x512', type: 'image/png' }],
+      icons: [{ src: `${BASE_PATH}/icon-192.png`, sizes: '192x192', type: 'image/png' }, { src: `${BASE_PATH}/icon-512.png`, sizes: '512x512', type: 'image/png' }],
     },
     null,
     2,
@@ -322,7 +336,7 @@ writeFileSync(join(DIST, 'sitemap.xml'), sitemap(pages));
 writeFileSync(join(DIST, 'robots.txt'), robots());
 writeFileSync(join(DIST, 'llms.txt'), llmsTxt(pages));
 writeFileSync(join(DIST, 'site.webmanifest'), manifest());
-writeFileSync(join(DIST, 'CNAME'), site.domain + '\n');
+if (CUSTOM_DOMAIN) writeFileSync(join(DIST, 'CNAME'), site.domain + '\n');
 writeFileSync(join(DIST, '.nojekyll'), '');
 if (existsSync(join(SRC, 'static'))) cpSync(join(SRC, 'static'), DIST, { recursive: true });
 console.log(`✓ built ${pages.length} pages → dist/`);
