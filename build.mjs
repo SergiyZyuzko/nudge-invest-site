@@ -192,7 +192,7 @@ ${jsonLd(schema)}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap bar">
-    <a class="brand" href="/" aria-label="${esc(site.name)} home"><span class="mark"><b>N</b><i>I</i></span>${esc(site.name)}</a>
+    <a class="brand" href="/" aria-label="${esc(site.name)} home"><img class="mark" src="/icon-192.png" alt="" width="30" height="30" decoding="async">${esc(site.name)}</a>
     <nav class="nav" aria-label="Primary">${nav}</nav>
     <a class="btn btn-primary btn-sm" href="${site.playUrl}" rel="noopener">Get it on Google Play</a>
   </div>
@@ -204,7 +204,7 @@ ${body}
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="/"><span class="mark"><b>N</b><i>I</i></span>${esc(site.name)}</a>
+        <a class="brand" href="/"><img class="mark" src="/icon-192.png" alt="" width="30" height="30" loading="lazy" decoding="async">${esc(site.name)}</a>
         <p class="muted">${esc(site.tagline)}. Built by ${esc(site.operator)}.</p>
         <p class="muted small">Nudge Invest is a personal bookkeeping tool, not a broker or financial adviser. It gives no personalised investment advice. Investing involves risk.</p>
       </div>
