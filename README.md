@@ -39,6 +39,8 @@ CNAME www  sergiyzyuzko.github.io
 
 and set the custom domain in the repo's **Settings → Pages** (enable *Enforce HTTPS* once the certificate issues).
 
+**Live on `https://nudgeinvest.app` since 2026-09-12.** Registrar Spaceship, DNS in Spaceship's own nameservers: four apex `A` records to GitHub Pages (`185.199.108-111.153`) plus `www` `CNAME` -> `sergiyzyuzko.github.io`. Spaceship's panel has no `ALIAS`/`ANAME` type, so the apex is pinned to IPs — if GitHub ever renumbers its edge, these four records are what breaks. The repo variable `SITE_BASE_URL=https://nudgeinvest.app` drives the build; `build.mjs` emits `CNAME` automatically whenever the base URL is the custom domain, which is what sets the domain on Pages. `github.io` now 301s to the apex, and `www` 301s to the apex. Certificate covers both names. **Note:** `.app` is HSTS-preloaded, so there is no HTTP fallback — if the certificate ever lapses the site is unreachable, not merely insecure.
+
 ## SEO / GEO conventions
 
 - Every page: one `<h1>`, a ≤62-char `<title>`, a 70–160-char description, canonical, OG/Twitter tags, `BreadcrumbList`. The build fails if any of these are off.
