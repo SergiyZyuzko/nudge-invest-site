@@ -62,6 +62,8 @@ node tools/render-og.mjs
 
 ## Search Console
 
+**`https://nudgeinvest.app/` is verified as a URL-prefix property (2026-09-12)** — auto-verified by the HTML file, which the static build already serves on any domain, so no DNS TXT was needed. Sitemap submitted; the homepage is in the priority crawl queue. A *Domain* property (covering `www`, subdomains and both protocols) would still need a DNS TXT record at Spaceship — worth adding, not urgent. Known UI quirk: after one inspection, typing a second URL in the top box re-runs the *first* URL; use the property switcher or reload before inspecting another page.
+
 The github.io property is verified two ways — `src/static/google3a20395304e6f416.html` (HTML-file method) and the `googleSiteVerification` meta tag emitted from `site.config.json`. Don't delete either. Sitemap: `/sitemap.xml` (submitted 2026-09-07). After the custom domain is live, add it as a Domain property in Search Console; the meta tag verifies it automatically.
 
 ## IndexNow
